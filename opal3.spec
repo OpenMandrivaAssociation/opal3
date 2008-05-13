@@ -4,18 +4,16 @@
 
 Summary:	VoIP library
 Name:		opal3
-Version:	3.1.2
+Version:	3.2.0
 Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	http://prdownloads.sourceforge.net/opalvoip/opal-%{version}-src.tar.bz2
-# (fc) fix libname
-Patch0:		opal-3.0.1-libname.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
-BuildRequires:	ptlib-devel >= 2.1.2
+BuildRequires:	ptlib-devel >= 2.2.0
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
@@ -58,7 +56,6 @@ Opal.
 
 %prep
 %setup -q -n opal_%{version}
-%patch0 -p1 -b .libname
 
 %build
 %configure2_5x \
