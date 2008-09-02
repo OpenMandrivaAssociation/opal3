@@ -4,16 +4,22 @@
 
 Summary:	VoIP library
 Name:		opal3
-Version:	3.2.0
-Release:	%mkrel 2
+Version:	3.3.1
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
-Source0:	http://prdownloads.sourceforge.net/opalvoip/opal-%{version}-src.tar.bz2
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/3.3/opal-%{version}.tar.bz2
+# Fixes build with underlinking protection. Not actually needed as
+# it's in a plugin, but it's better to have the build working with
+# underlinking protection so we can catch any future underlinking 
+# issues in the shared library rather than disable it for the whole
+# build - AdamW 2008/09
+Patch0:		opal-3.3.1-pthread.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
-BuildRequires:	ptlib-devel >= 2.2.0
+BuildRequires:	ptlib-devel >= 2.3.1
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
@@ -55,7 +61,8 @@ Header files and libraries for developing applications that use
 Opal.
 
 %prep
-%setup -q -n opal_%{version}
+%setup -q -n opal-%{version}
+%patch0 -p1 -b .pthread
 
 %build
 %configure2_5x \
@@ -86,9 +93,9 @@ Opal.
 
 %files -n %{libname}-plugins
 %defattr(-,root,root)
-%{_libdir}/ptlib/codecs/audio/*
-%{_libdir}/ptlib/codecs/video/*
-%{_libdir}/ptlib/lid/*
+%{_libdir}/ptlib/plugins/codec/audio/*
+%{_libdir}/ptlib/plugins/codec/video/*
+%{_libdir}/ptlib/plugins/lid/*
 
 %files -n %{develname}
 %defattr(-,root,root)
