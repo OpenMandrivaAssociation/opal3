@@ -103,4 +103,4 @@ Opal.
 %attr(0755,root,root) %{_libdir}/*.so
 %{_includedir}/*
 %{_datadir}/opal
-%{_prefix}/lib/pkgconfig/opal.pc
+%{_libdir}/pkgconfig/opal.pc
