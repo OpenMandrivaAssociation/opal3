@@ -1,25 +1,22 @@
+%define _disable_ld_as_needed		1
+%define _disable_ld_no_undefined	1
+
 %define major		3
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
 
 Summary:	VoIP library
 Name:		opal3
-Version:	3.3.1
+Version:	3.4.1
 Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/3.3/opal-%{version}.tar.bz2
-# Fixes build with underlinking protection. Not actually needed as
-# it's in a plugin, but it's better to have the build working with
-# underlinking protection so we can catch any future underlinking 
-# issues in the shared library rather than disable it for the whole
-# build - AdamW 2008/09
-Patch0:		opal-3.3.1-pthread.patch
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/3.4/opal-%{version}.tar.bz2
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
-BuildRequires:	ptlib-devel >= 2.3.1
+BuildRequires:	ptlib-devel >= 2.4.1
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
@@ -62,14 +59,11 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
-%patch0 -p1 -b .pthread
 
 %build
-%configure2_5x \
-    --enable-localspeex \
-    --enable-h263avcodec 
+%configure2_5x
 
-%make OPTCCFLAGS="" RPM_OPT_FLAGS="" 
+%make OPTCCFLAGS="%{optflags}" RPM_OPT_FLAGS="%{optflags}" 
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -93,14 +87,14 @@ Opal.
 
 %files -n %{libname}-plugins
 %defattr(-,root,root)
-%{_libdir}/ptlib/plugins/codec/audio/*
-%{_libdir}/ptlib/plugins/codec/video/*
-%{_libdir}/ptlib/plugins/lid/*
+%{_libdir}/opal-%{version}/codecs/audio/*
+%{_libdir}/opal-%{version}/codecs/video/*
+%{_libdir}/opal-%{version}/lid/*
 
 %files -n %{develname}
 %defattr(-,root,root)
 %doc mpl-1.0.htm
 %attr(0755,root,root) %{_libdir}/*.so
+%{_libdir}/*.*a
 %{_includedir}/*
-%{_datadir}/opal
 %{_libdir}/pkgconfig/opal.pc
