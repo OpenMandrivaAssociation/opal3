@@ -1,14 +1,14 @@
 %define _disable_ld_as_needed		1
 %define _disable_ld_no_undefined	1
 
-%define major		3
+%define major		3.4.1
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
 
 Summary:	VoIP library
 Name:		opal3
 Version:	3.4.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -32,6 +32,7 @@ communications over packet based networks.
 Summary:	Codec plugins for Opal
 Group:		System/Libraries
 Provides:	%{name}-plugins = %{version}-%{release}
+Obsoletes:	%{mklibname opal 3}-plugins < 3.4.1-2mdv
 
 %description -n	%{libname}-plugins
 PTlib codec plugins for various formats provided by Opal.
@@ -41,6 +42,7 @@ Summary:	Opal Library
 Group:		System/Libraries
 Provides:	%{name} = %{version}-%{release}
 Requires:	%{libname}-plugins = %{version}-%{release}
+Obsoletes:	%{mklibname opal 3} < 3.4.1-2mdv
 
 %description -n	%{libname}
 Shared library for OPAL (SIP / H323 stack).
@@ -49,7 +51,7 @@ Shared library for OPAL (SIP / H323 stack).
 Summary:	Opal development files
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release} 
-Requires:	ptlib-devel >= 2.1.2
+Requires:	ptlib-devel >= 2.4.1
 Provides:	%{name}-devel = %{version}-%{release}
 Conflicts:	%{mklibname opal -d}
 
@@ -69,6 +71,10 @@ Opal.
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %makeinstall_std
+
+# remove incorrect symlinks (http://bugzilla.gnome.org/show_bug.cgi?id=553808 )
+rm -f %{buildroot}%{_libdir}/libopal.so.?
+rm -f %{buildroot}%{_libdir}/libopal.so.?.?
 
 %if %mdkversion < 200900
 %post -p /sbin/ldconfig -n %{libname}
