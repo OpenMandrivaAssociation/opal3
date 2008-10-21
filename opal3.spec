@@ -12,7 +12,7 @@ Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/3.4/opal-%{version}.tar.bz2
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
