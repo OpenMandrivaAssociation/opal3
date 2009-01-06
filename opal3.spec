@@ -1,7 +1,7 @@
 %define _disable_ld_as_needed		1
 %define _disable_ld_no_undefined	1
 
-%define version		3.4.2
+%define version		3.5.2
 %define major		%version
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
@@ -14,6 +14,8 @@ License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
+#gw disable some flags to make it build with our libavcodec
+Patch: opal-3.5.2-ffmpeg-build.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
@@ -22,6 +24,8 @@ BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	X11-devel
+# gw 3.5.2 doesn't build with celt 0.5.1
+# BuildRequires:	libcelt-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -62,6 +66,7 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
+%patch -p1
 
 %build
 %configure2_5x
