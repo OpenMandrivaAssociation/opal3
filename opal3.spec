@@ -6,10 +6,16 @@
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
 
+%define build_plf 0
+%{?_with_plf: %{expand: %%global build_plf 1}}
+%if %build_plf
+%define distsuffix plf
+%endif
+
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -24,6 +30,9 @@ BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	X11-devel
+%if %build_plf
+BuildRequires: x264-devel
+%endif
 # gw 3.5.2 doesn't build with celt 0.5.1
 # BuildRequires:	libcelt-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -32,6 +41,10 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 This is an open source class library for the development of
 applications that wish to use SIP / H.323 protocols for multimedia
 communications over packet based networks.
+
+%if %build_plf
+This package is in PLF because the H264 codec is covered by patents.
+%endif
 
 %package -n	%{libname}-plugins
 Summary:	Codec plugins for Opal
