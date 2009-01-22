@@ -15,13 +15,12 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
-#gw disable some flags to make it build with our libavcodec
-Patch: opal-3.5.2-ffmpeg-build.patch
+Patch: opal-r21941-fix-h263-with-ffmpeg.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
@@ -79,7 +78,7 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
-%patch -p1
+%patch -p1 -b .h263
 
 %build
 %configure2_5x
