@@ -1,7 +1,7 @@
 %define _disable_ld_as_needed		1
 %define _disable_ld_no_undefined	1
 
-%define version		3.5.2
+%define version		3.6.0
 %define major		%version
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
@@ -15,16 +15,15 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 3
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
-Patch: opal-r21941-fix-h263-with-ffmpeg.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
-BuildRequires:	ptlib-devel >= 2.4.2
+BuildRequires:	ptlib-devel >= 2.6.0
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
@@ -32,8 +31,7 @@ BuildRequires:	X11-devel
 %if %build_plf
 BuildRequires: x264-devel
 %endif
-# gw 3.5.2 doesn't build with celt 0.5.1
-# BuildRequires:	libcelt-devel
+BuildRequires:	libcelt-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -78,7 +76,6 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
-%patch -p1 -b .h263
 
 %build
 %configure2_5x
