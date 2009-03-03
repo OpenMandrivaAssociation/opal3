@@ -31,7 +31,7 @@ BuildRequires:	X11-devel
 %if %build_plf
 BuildRequires: x264-devel
 %endif
-BuildRequires:	libcelt-devel
+BuildRequires:	celt-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
