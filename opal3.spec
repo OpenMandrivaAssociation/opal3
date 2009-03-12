@@ -15,7 +15,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -78,7 +78,9 @@ Opal.
 %setup -q -n opal-%{version}
 
 %build
-%configure2_5x --enable-libavcodec-stackalign-hack
+%configure2_5x 
+#gw this makes it crash on x86_64
+#--enable-libavcodec-stackalign-hack
 
 %make OPTCCFLAGS="%{optflags}" RPM_OPT_FLAGS="%{optflags}" 
 
