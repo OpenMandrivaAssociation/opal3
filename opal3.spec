@@ -15,7 +15,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -78,9 +78,10 @@ Opal.
 %setup -q -n opal-%{version}
 
 %build
-%configure2_5x 
 #gw don't use the default %%optflags, see
 # https://qa.mandriva.com/show_bug.cgi?id=48476
+%define optflags %nil
+%configure2_5x 
 %make
 
 %install
