@@ -15,7 +15,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -79,10 +79,9 @@ Opal.
 
 %build
 %configure2_5x 
-#gw this makes it crash on x86_64
-#--enable-libavcodec-stackalign-hack
-
-%make OPTCCFLAGS="%{optflags}" RPM_OPT_FLAGS="%{optflags}" 
+#gw don't use the default %%optflags, see
+# https://qa.mandriva.com/show_bug.cgi?id=48476
+%make
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
