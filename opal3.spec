@@ -1,7 +1,7 @@
 %define _disable_ld_as_needed		1
 %define _disable_ld_no_undefined	1
 
-%define version		3.6.1
+%define version		3.6.2
 %define major		%version
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
@@ -15,7 +15,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 3
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
