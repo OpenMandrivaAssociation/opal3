@@ -15,11 +15,12 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
+Patch:		opal-3.6.2-gcc4.4.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
@@ -76,6 +77,7 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
+%patch -p1
 
 %build
 #gw don't use the default %%optflags, see
