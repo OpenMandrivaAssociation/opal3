@@ -15,7 +15,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -87,7 +87,7 @@ Opal.
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std
 
@@ -104,7 +104,7 @@ rm -f %{buildroot}%{_libdir}/libopal.so.?.?
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
