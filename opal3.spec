@@ -15,7 +15,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -31,7 +31,7 @@ BuildRequires:	X11-devel
 %if %build_plf
 BuildRequires: x264-devel
 %endif
-BuildRequires:	celt-devel >= 0.7.0
+#BuildRequires:	celt-devel >= 0.7.0
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -83,7 +83,7 @@ Opal.
 %define optflags %nil
 #gw else the UINT64_C macro is not defined by stdint.h
 export STDCCFLAGS=-D__STDC_CONSTANT_MACROS
-%configure2_5x 
+%configure2_5x
 %make
 
 %install
