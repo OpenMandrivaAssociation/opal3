@@ -20,7 +20,6 @@ Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
 Patch0:		opal-3.6.8-link.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
-BuildRequires:	libilbc-devel
 BuildRequires:	ptlib-devel >= 2.6.6
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
