@@ -1,6 +1,3 @@
-%define _disable_ld_as_needed		1
-%define _disable_ld_no_undefined	1
-
 %define version		3.6.8
 %define major		%version
 %define libname		%mklibname opal %{major}
@@ -15,19 +12,19 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
+Patch0:		opal-3.6.8-link.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
-BuildRequires:	openldap-devel
+BuildRequires:	libilbc-devel
 BuildRequires:	ptlib-devel >= 2.6.6
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
-BuildRequires:	ffmpeg-devel
-BuildRequires:	X11-devel
+BuildRequires:	isdn4k-utils-devel
 %if %build_plf
 BuildRequires: x264-devel
 %endif
@@ -76,6 +73,7 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
+%patch0 -p1 -b .link
 
 %build
 #gw don't use the default %%optflags, see
