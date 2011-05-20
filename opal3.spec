@@ -7,12 +7,16 @@
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %if %build_plf
 %define distsuffix plf
+%if %mdvver >= 201100
+# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
+%define extrarelsuffix plf
+%endif
 %endif
 
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 5
+Release:	%mkrel 6%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
