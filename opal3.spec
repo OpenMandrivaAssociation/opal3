@@ -16,12 +16,13 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	%version
-Release:	%mkrel 6%{?extrarelsuffix}
+Release:	%mkrel 7%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
 Patch0:		opal-3.6.8-link.patch
+Patch1:		opal-3.6.8-celt.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
 BuildRequires:	ptlib-devel >= 2.6.6
@@ -31,7 +32,7 @@ BuildRequires:	isdn4k-utils-devel
 %if %build_plf
 BuildRequires: x264-devel
 %endif
-#BuildRequires:	celt-devel >= 0.7.0
+BuildRequires:	celt-devel >= 0.7.0
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -77,6 +78,8 @@ Opal.
 %prep
 %setup -q -n opal-%{version}
 %patch0 -p1 -b .link
+%patch1 -p1 -b .celt
+
 
 %build
 #gw don't use the default %%optflags, see
