@@ -1,5 +1,5 @@
-%define version		3.6.8
-%define major		%version
+%define version		3.10.2
+%define major		%{version}
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
 
@@ -13,22 +13,25 @@
 %endif
 %endif
 
+%define url_ver %(echo %version | cut -d. -f1,2)
+
 Summary:	VoIP library
 Name:		opal3
-Version:	%version
-Release:	%mkrel 7%{?extrarelsuffix}
+Version:	%{version}
+Release:	%mkrel 1%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/opal-%{version}.tar.bz2
-Patch0:		opal-3.6.8-link.patch
-Patch1:		opal-3.6.8-celt.patch
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/%{url_ver}/opal-%{version}.tar.xz
+Patch0:		opal-3.10.1-fix-link.patch
+Patch2:		opal-3.10.2-ffmpeg0.8.patch
 BuildRequires:	gawk
 BuildRequires:	openssl-devel
-BuildRequires:	ptlib-devel >= 2.6.6
+BuildRequires:	openldap-devel
+BuildRequires:	ptlib-devel >= 2.10.2
 BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
-BuildRequires:	isdn4k-utils-devel
+BuildRequires:	ffmpeg-devel
 %if %build_plf
 BuildRequires: x264-devel
 %endif
@@ -67,7 +70,7 @@ Shared library for OPAL (SIP / H323 stack).
 Summary:	Opal development files
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release} 
-Requires:	ptlib-devel >= 2.4.1
+Requires:	ptlib-devel >= 2.10.2
 Provides:	%{name}-devel = %{version}-%{release}
 Conflicts:	%{mklibname opal -d}
 
@@ -77,9 +80,8 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
-%patch0 -p1 -b .link
-%patch1 -p1 -b .celt
-
+%patch0 -p0 -b .link
+%patch2 -p0 -b .ffmpeg
 
 %build
 #gw don't use the default %%optflags, see
@@ -118,7 +120,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_libdir}/opal-%{version}/codecs/audio/*
 %{_libdir}/opal-%{version}/codecs/video/*
-%{_libdir}/opal-%{version}/lid/*
 
 %files -n %{develname}
 %defattr(-,root,root)
