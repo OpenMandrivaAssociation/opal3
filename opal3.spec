@@ -1,4 +1,3 @@
-%define version		3.10.2
 %define major		%{version}
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
@@ -17,8 +16,8 @@
 
 Summary:	VoIP library
 Name:		opal3
-Version:	%{version}
-Release:	%mkrel 1%{?extrarelsuffix}
+Version:	3.10.2
+Release:	2%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -33,10 +32,9 @@ BuildRequires:	libspeex-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	ffmpeg-devel
 %if %build_plf
-BuildRequires: x264-devel
+BuildRequires:	x264-devel
 %endif
 BuildRequires:	celt-devel >= 0.7.0
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 This is an open source class library for the development of
@@ -70,7 +68,6 @@ Shared library for OPAL (SIP / H323 stack).
 Summary:	Opal development files
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release} 
-Requires:	ptlib-devel >= 2.10.2
 Provides:	%{name}-devel = %{version}-%{release}
 Conflicts:	%{mklibname opal -d}
 
@@ -101,28 +98,14 @@ rm -rf %{buildroot}
 rm -f %{buildroot}%{_libdir}/libopal.so.?
 rm -f %{buildroot}%{_libdir}/libopal.so.?.?
 
-%if %mdkversion < 200900
-%post -p /sbin/ldconfig -n %{libname}
-%endif
-
-%if %mdkversion < 200900
-%postun -p /sbin/ldconfig -n %{libname}
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files -n %{libname}
-%defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/lib*.so.%{major}*
 
 %files -n %{libname}-plugins
-%defattr(-,root,root)
 %{_libdir}/opal-%{version}/codecs/audio/*
 %{_libdir}/opal-%{version}/codecs/video/*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc mpl-1.0.htm
 %attr(0755,root,root) %{_libdir}/*.so
 %{_libdir}/*.*a
