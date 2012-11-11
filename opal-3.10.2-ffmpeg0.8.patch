@@ -1,0 +1,11 @@
+--- plugins/video/MPEG4-ffmpeg/mpeg4.cxx.ffmpeg	2011-07-20 22:24:03.000000000 +0200
++++ plugins/video/MPEG4-ffmpeg/mpeg4.cxx	2011-07-20 22:24:35.000000000 +0200
+@@ -808,7 +808,7 @@
+         }
+         else // No IFrame requested, let avcodec decide what to do
+         {
+-            m_avpicture->pict_type = 0;
++            m_avpicture->pict_type = (AVPictureType)0;
+         }
+ 
+         // Encode a frame
