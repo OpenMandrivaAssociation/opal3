@@ -2,47 +2,48 @@
 %define libname		%mklibname opal %{major}
 %define develname	%mklibname %{name} -d
 
+######################
+# Hardcode PLF build
 %define build_plf 0
-%{?_with_plf: %{expand: %%global build_plf 1}}
-%if %build_plf
+######################
+
+%if %{build_plf}
 %define distsuffix plf
-%if %mdvver >= 201100
 # make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
 %define extrarelsuffix plf
-%endif
 %endif
 
 %define url_ver %(echo %version | cut -d. -f1,2)
 
 Summary:	VoIP library
 Name:		opal3
-Version:	3.10.2
-Release:	2%{?extrarelsuffix}
+Version:	3.10.9
+Release:	1%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/%{url_ver}/opal-%{version}.tar.xz
-Patch0:		opal-3.10.1-fix-link.patch
-Patch2:		opal-3.10.2-ffmpeg0.8.patch
+Patch0:		opal-3.10.7-fix-link.patch
+Patch2:		opal-3.10.7-ffmpeg-0.11.patch
 BuildRequires:	gawk
-BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig(openssl)
 BuildRequires:	openldap-devel
-BuildRequires:	ptlib-devel >= 2.10.2
-BuildRequires:	libspeex-devel
-BuildRequires:	libtheora-devel
+BuildRequires:	ptlib-devel >= 2.10.7
+BuildRequires:	pkgconfig(speex)
+BuildRequires:	pkgconfig(theora)
 BuildRequires:	ffmpeg-devel
-%if %build_plf
-BuildRequires:	x264-devel
+%if %{build_plf}
+BuildRequires:	pkgconfig(x264)
 %endif
-BuildRequires:	celt-devel >= 0.7.0
 
 %description
 This is an open source class library for the development of
 applications that wish to use SIP / H.323 protocols for multimedia
 communications over packet based networks.
 
-%if %build_plf
-This package is in PLF because the H264 codec is covered by patents.
+%if %{build_plf}
+This package is in restricted repository because the H264 codec is
+covered by patents.
 %endif
 
 %package -n	%{libname}-plugins
@@ -90,8 +91,6 @@ export STDCCFLAGS=-D__STDC_CONSTANT_MACROS
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 # remove incorrect symlinks (http://bugzilla.gnome.org/show_bug.cgi?id=553808 )
@@ -111,3 +110,5 @@ rm -f %{buildroot}%{_libdir}/libopal.so.?.?
 %{_libdir}/*.*a
 %{_includedir}/*
 %{_libdir}/pkgconfig/opal.pc
+
+
