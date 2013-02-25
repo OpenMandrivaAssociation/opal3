@@ -28,7 +28,7 @@ Patch2:		opal-3.10.7-ffmpeg-0.11.patch
 BuildRequires:	gawk
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	openldap-devel
-BuildRequires:	ptlib-devel >= 2.10.7
+BuildRequires:	pkgconfig(ptlib)
 BuildRequires:	pkgconfig(speex)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	ffmpeg-devel
