@@ -17,7 +17,7 @@
 
 Summary:	VoIP library
 Name:		opal3
-Version:	3.10.9
+Version:	3.10.10
 Release:	1%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
@@ -110,5 +110,3 @@ rm -f %{buildroot}%{_libdir}/libopal.so.?.?
 %{_libdir}/*.*a
 %{_includedir}/*
 %{_libdir}/pkgconfig/opal.pc
-
-
