@@ -78,27 +78,19 @@ Opal.
 
 %prep
 %setup -q -n opal-%{version}
-%patch0 -p0 -b .link
-%patch2 -p0 -b .ffmpeg
+%patch0 -p0 -b .link~
+%patch2 -p0 -b .ffmpeg~
 
 %build
-#gw don't use the default %%optflags, see
-# https://qa.mandriva.com/show_bug.cgi?id=48476
 %global optflags %{optflags} -Ofast -fopenmp
-#gw else the UINT64_C macro is not defined by stdint.h
-export STDCCFLAGS=-D__STDC_CONSTANT_MACROS
 %configure2_5x
 %make
 
 %install
 %makeinstall_std
 
-# remove incorrect symlinks (http://bugzilla.gnome.org/show_bug.cgi?id=553808 )
-rm -f %{buildroot}%{_libdir}/libopal.so.?
-rm -f %{buildroot}%{_libdir}/libopal.so.?.?
-
 %files -n %{libname}
-%attr(0755,root,root) %{_libdir}/lib*.so.%{major}*
+%{_libdir}/libopal.so.%{major}*
 
 %files -n %{libname}-plugins
 %{_libdir}/opal-%{version}/codecs/audio/*
@@ -106,7 +98,7 @@ rm -f %{buildroot}%{_libdir}/libopal.so.?.?
 
 %files -n %{develname}
 %doc mpl-1.0.htm
-%attr(0755,root,root) %{_libdir}/*.so
-%{_libdir}/*.*a
-%{_includedir}/*
+%{_libdir}/libopal.so
+%{_libdir}/libopal_s.a
+%{_includedir}/opal
 %{_libdir}/pkgconfig/opal.pc
