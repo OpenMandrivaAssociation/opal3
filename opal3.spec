@@ -84,7 +84,7 @@ Opal.
 %build
 #gw don't use the default %%optflags, see
 # https://qa.mandriva.com/show_bug.cgi?id=48476
-%define optflags %nil
+%global optflags %{optflags} -Ofast -fopenmp
 #gw else the UINT64_C macro is not defined by stdint.h
 export STDCCFLAGS=-D__STDC_CONSTANT_MACROS
 %configure2_5x
