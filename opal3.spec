@@ -32,6 +32,7 @@ BuildRequires:	pkgconfig(ptlib)
 BuildRequires:	pkgconfig(speex)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:	ffmpeg-devel
+BuildRequires:	gomp-devel
 %if %{build_plf}
 BuildRequires:	pkgconfig(x264)
 %endif
