@@ -18,13 +18,14 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	3.10.10
-Release:	1%{?extrarelsuffix}
+Release:	2%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 Url:		http://www.opalvoip.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/opal/%{url_ver}/opal-%{version}.tar.xz
 Patch0:		opal-3.10.7-fix-link.patch
 Patch2:		opal-3.10.7-ffmpeg-0.11.patch
+Patch3:		opal-3.10.10-ffmpeg-2.0.patch
 BuildRequires:	gawk
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gomp-devel
@@ -78,6 +79,7 @@ Opal.
 %setup -qn opal-%{version}
 %patch0 -p0 -b .link~
 %patch2 -p0 -b .ffmpeg~
+%patch3 -p1 -b .ffmpeg2~
 
 %build
 %global optflags %{optflags} -Ofast -fopenmp
