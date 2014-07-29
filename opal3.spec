@@ -18,7 +18,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	3.10.10
-Release:	2%{?extrarelsuffix}
+Release:	3%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 Url:		http://www.opalvoip.org/
