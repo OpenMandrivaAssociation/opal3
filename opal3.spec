@@ -18,7 +18,7 @@
 Summary:	VoIP library
 Name:		opal3
 Version:	3.10.10
-Release:	2%{?extrarelsuffix}
+Release:	3%{?extrarelsuffix}
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org/
@@ -32,7 +32,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(ptlib)
 BuildRequires:	pkgconfig(speex)
 BuildRequires:	pkgconfig(theora)
-BuildRequires:	ffmpeg-devel
+BuildRequires:	ffmpeg-devel >= 2.5.4
 BuildRequires:	gomp-devel
 %if %{build_plf}
 BuildRequires:	pkgconfig(x264)
